@@ -63,8 +63,13 @@ Also keeping this aliased to check most recent sync.
 alias cult_status="cd ~/workplace/cult/culstat/logs/; ls -1 | tail -1 | xargs tail -1 | cut -c1-10 | xargs date -r; cd - 1>/dev/null"
 ```
 
+When done, run
+```sh
+./cult_psql.sh [db_name]
+```
+
 ### TODO
-- DB population script
+- ~~DB population script~~
 - Cool queries
 
 ### License
