@@ -4,8 +4,11 @@ require 'json'
 
 TIME = Time.now.to_i
 
+# Script runs every minute, so this ensures the same
+# file is used for half an hour's worth of results
 LOG_FILE = "/home/harman/cult/logs/cult_classes_#{TIME/1800}.csv"
 
+# Cult has 7 centers in all
 (1..7).each do |center|
   response = HTTParty.get("https://api.cultfit.in/v1/classes?center=#{center}")
 
