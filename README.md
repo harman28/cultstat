@@ -54,6 +54,15 @@ Right now, `class_dump.rb` just fetches the class availability data, and puts it
 The CSV will get big quickly (the API returns results for the next three days, and I get exactly 152 rows per call), and I like opening my CSVs in Sublime, so to set a rough limit of 5k rows per CSV, one file is used for every half an hour (30 minutes * 152 rows = 4560). This is done by diving the timestamp by 1800 (30 mins * 60 seconds) and using it in the filename.
 Later, all files can be iterated to populate a DB.
 
+The script is running on a remote machine, so I'm fetching the data to local regularly.
+```sh
+*/15 * * * * rsync --dry-run --recursive --verbose --progress --exclude '.gitignore' harman@<remote_ip>:~/cult/logs/ /Users/harmansingh/workplace/cult/logs
+```
+Also keeping this aliased to check most recent sync.
+```sh
+alias cult_status="cd ~/workplace/cult/logs/; ls -1 | tail -1 | xargs tail -1 | cut -c1-10 | xargs date -r; cd - 1>/dev/null"
+```
+
 ### TODO
 - DB population script
 - Cool queries
