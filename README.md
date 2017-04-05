@@ -56,7 +56,7 @@ Later, all files can be iterated to populate a DB.
 
 The script is running on a remote machine, so I'm fetching the data to local regularly.
 ```sh
-*/15 * * * * rsync --dry-run --recursive --verbose --progress --exclude '.gitignore' harman@<remote_ip>:~/cult/logs/ /Users/harmansingh/workplace/cult/logs
+0 * * * * rsync --dry-run --recursive --verbose --progress --exclude '.gitignore' harman@<remote_ip>:~/cult/logs/ /Users/harmansingh/workplace/cult/logs
 ```
 Also keeping this aliased to check most recent sync.
 ```sh
