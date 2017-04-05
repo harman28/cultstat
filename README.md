@@ -49,9 +49,9 @@ Other APIs exist too, which can be hit using a token you get when you sign up. H
 ### Fetching Data
 Right now, `class_dump.rb` just fetches the class availability data, and puts it in a CSV with the timestamp. I'm polling the API as often as possible, so the following line was added to crontab:
 ```
-* * * * * ruby /home/harman/cult/class_dump.rb
+*/10 * * * * ruby /home/harman/cult/class_dump.rb
 ```
-The CSV will get big quickly (the API returns results for the next three days, and I get exactly 152 rows per call), and I like opening my CSVs in Sublime, so to set a rough limit of 5k rows per CSV, one file is used for every half an hour (30 minutes * 152 rows = 4560). This is done by diving the timestamp by 1800 (30 mins * 60 seconds) and using it in the filename.
+The CSV will get big quickly (the API returns results for the next three days, and I get exactly 152 rows per call), and I like opening my CSVs in Sublime, so to set a rough limit of 5k rows per CSV, one file is used for every 5 hours (30 requests * 152 rows = 4560). This is done by diving the timestamp by 18000 (300 mins * 60 seconds) and using it in the filename.
 Later, all files can be iterated to populate a DB.
 
 The script is running on a remote machine, so I'm fetching the data to local regularly.
