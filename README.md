@@ -56,11 +56,11 @@ Later, all files can be iterated to populate a DB.
 
 The script is running on a remote machine, so I'm fetching the data to local regularly.
 ```sh
-0 * * * * rsync --dry-run --recursive --verbose --progress --exclude '.gitignore' harman@<remote_ip>:~/cult/logs/ /Users/harmansingh/workplace/cult/logs
+0 * * * * rsync --dry-run --recursive --verbose --progress --exclude '.gitignore' harman@<remote_ip>:~/cult/logs/ /Users/harmansingh/workplace/cult/cultstat/logs
 ```
 Also keeping this aliased to check most recent sync.
 ```sh
-alias cult_status="cd ~/workplace/cult/logs/; ls -1 | tail -1 | xargs tail -1 | cut -c1-10 | xargs date -r; cd - 1>/dev/null"
+alias cult_status="cd ~/workplace/cult/culstat/logs/; ls -1 | tail -1 | xargs tail -1 | cut -c1-10 | xargs date -r; cd - 1>/dev/null"
 ```
 
 ### TODO
