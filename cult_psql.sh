@@ -12,15 +12,15 @@ echo "Creating $MYDATABASE"
 dropdb $MYDATABASE
 createdb $MYDATABASE
 
-# Create players table
+# Create classes table
 psql -c "CREATE TABLE classes (
     id SERIAL,
     epoch_time INTEGER,
     class_id INTEGER,
     class_date CHARACTER VARYING(10),
-    centerID INTEGER,
-    workoutID INTEGER,
-    cultAppAvailableSeats INTEGER,
+    center_id INTEGER,
+    workout_id INTEGER,
+    seats INTEGER,
     startTime CHARACTER VARYING(8),
     endTime CHARACTER VARYING(8),
     formattedStartTime CHARACTER VARYING(7),
@@ -39,9 +39,9 @@ for x in $(ls logs/cult_classes_*.csv);
                     epoch_time,
                     class_id,
                     class_date,
-                    centerID,
-                    workoutID,
-                    cultAppAvailableSeats,
+                    center_id,
+                    workout_id,
+                    seats,
                     startTime,
                     endTime,
                     formattedStartTime,
@@ -55,5 +55,17 @@ done;
 psql -c "UPDATE classes SET time_stamp=to_timestamp(epoch_time);" $MYDATABASE
 
 echo "Classes Imported."
+
+# Create players table
+psql -c "CREATE TABLE workouts (
+    id INTEGER,
+    name CHARACTER VARYING(20),
+    status CHARACTER VARYING(20),
+    colour CHARACTER VARYING(20)
+);" $MYDATABASE
+
+psql -c "\COPY workouts(id, name, status, colour) FROM 'logs/cult_workouts.csv' DELIMITER ',' CSV;" $MYDATABASE
+
+echo "Workouts Imported."
 
 echo "All done."
