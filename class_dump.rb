@@ -8,9 +8,16 @@ TIME = Time.now.to_i
 # file is used for 5 hours' worth of results
 LOG_FILE = "/home/harman/cult/logs/cult_classes_#{TIME/18000}.csv"
 
+token = ENV['CULT_AUTH_TOKEN']
+
 # Cult has 7 centers in all
 (1..7).each do |center|
-  response = HTTParty.get("https://api.cultfit.in/v1/classes?center=#{center}")
+  response = HTTParty.get(
+    "https://api.cultfit.in/v1/classes?center=#{center}",
+    headers:
+    {
+      "authorization" => token
+    })
 
   open(LOG_FILE, 'a') do |f|
     JSON.parse(response.body)['classes'].each do |klass|
